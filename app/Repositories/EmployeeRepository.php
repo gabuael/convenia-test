@@ -12,4 +12,11 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     {
         return Employee::create($employeeDTO->toArray());
     }
+
+    public function update(Employee $employee, EmployeeDTO $employeeDTO): Employee
+    {
+        $employee->update($employeeDTO->toArray());
+        $employee->fresh();
+        return $employee;
+    }
 }

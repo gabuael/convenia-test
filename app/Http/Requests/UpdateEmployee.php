@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\UtilsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEmployee extends FormRequest
+class UpdateEmployee extends FormRequest
 {
     use UtilsTrait;
     /**
@@ -13,7 +13,7 @@ class StoreEmployee extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->id === $this->employee->manager_id;
     }
 
     /**
@@ -24,20 +24,20 @@ class StoreEmployee extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:employees,email',
-            'cpf' => 'required|string|unique:employees,cpf',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'manager_id' => 'required|exists:users,id',
+            'name' => 'string|max:255',
+            'email' => 'string|email|unique:employees,email',
+            'cpf' => 'string|unique:employees,cpf',
+            'city' => 'string',
+            'state' => 'string',
         ];
     }
 
     public function prepareForValidation()
     {
-        $this->merge([
-            "manager_id" => $this->user()->id,
-            "cpf" => $this->formatCpf($this->cpf)
-        ]);
+        if ($this->cpf) {
+            $this->merge([
+                "cpf" => $this->formatCpf($this->cpf)
+            ]);
+        }
     }
 }
