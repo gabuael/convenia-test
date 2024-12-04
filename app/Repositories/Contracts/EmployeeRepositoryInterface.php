@@ -11,4 +11,5 @@ interface EmployeeRepositoryInterface
     public function store(EmployeeDTO $employeeDTO): Employee;
     public function update(Employee $employee, EmployeeDTO $employeeDTO): Employee;
     public function list(int $managerId): Collection;
+    public function delete(Employee $employee): bool;
 }

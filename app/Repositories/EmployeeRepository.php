@@ -25,4 +25,9 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     {
         return Employee::where('manager_id', $managerId)->get();
     }
+
+    public function delete(Employee $employee): bool
+    {
+        return $employee->delete();
+    }
 }

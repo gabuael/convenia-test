@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DTO\EmployeeDTO;
+use App\Http\Requests\DeleteEmployee;
 use App\Http\Requests\ListEmployee;
 use App\Http\Requests\StoreEmployee;
 use App\Http\Requests\UpdateEmployee;
@@ -32,5 +33,10 @@ class EmployeeController extends Controller
     public function list(ListEmployee $request)
     {
         return $this->employeeService->list($request->get('manager_id'));
+    }
+
+    public function delete(DeleteEmployee $request, Employee $employee)
+    {
+        return $this->employeeService->delete($employee);
     }
 }

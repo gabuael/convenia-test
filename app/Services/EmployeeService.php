@@ -26,4 +26,9 @@ class EmployeeService
     {
         return $this->employeeRepository->list($managerId);
     }
+
+    public function delete(Employee $employee): bool
+    {
+        return $this->employeeRepository->delete($employee);
+    }
 }
