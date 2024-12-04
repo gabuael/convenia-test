@@ -5,6 +5,7 @@ namespace App\Services;
 use App\DTO\EmployeeDTO;
 use App\Models\Employee;
 use App\Repositories\Contracts\EmployeeRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class EmployeeService
 {
@@ -19,5 +20,10 @@ class EmployeeService
     public function update(Employee $employee, EmployeeDTO $employeeDTO): Employee
     {
         return $this->employeeRepository->update($employee, $employeeDTO);
+    }
+
+    public function list(int $managerId): Collection
+    {
+        return $this->employeeRepository->list($managerId);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DTO\EmployeeDTO;
+use App\Http\Requests\ListEmployee;
 use App\Http\Requests\StoreEmployee;
 use App\Http\Requests\UpdateEmployee;
 use App\Models\Employee;
@@ -26,5 +27,10 @@ class EmployeeController extends Controller
             $employee,
             EmployeeDTO::fromArrayWithEmployData($request->validated(), $employee)
         );
+    }
+
+    public function list(ListEmployee $request)
+    {
+        return $this->employeeService->list($request->get('manager_id'));
     }
 }

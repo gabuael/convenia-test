@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\DTO\EmployeeDTO;
 use App\Models\Employee;
 use App\Repositories\Contracts\EmployeeRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
@@ -18,5 +19,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         $employee->update($employeeDTO->toArray());
         $employee->fresh();
         return $employee;
+    }
+
+    public function list(int $managerId): Collection
+    {
+        return Employee::where('manager_id', $managerId)->get();
     }
 }
