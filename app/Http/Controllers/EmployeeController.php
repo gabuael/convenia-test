@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DTO\EmployeeDTO;
 use App\Http\Requests\DeleteEmployee;
+use App\Http\Requests\ImportCsvEmployee;
 use App\Http\Requests\ListEmployee;
 use App\Http\Requests\StoreEmployee;
 use App\Http\Requests\UpdateEmployee;
@@ -38,5 +39,18 @@ class EmployeeController extends Controller
     public function delete(DeleteEmployee $request, Employee $employee)
     {
         return $this->employeeService->delete($employee);
+    }
+
+    public function importCsv(ImportCsvEmployee $request)
+    {
+        $filePath = $request->file('file')->store('csv_uploads');
+        $fullPath = storage_path('app/private/' . $filePath);
+
+        $response = $this->employeeService->importCsv($filePath, $fullPath);
+
+        return response()->json(
+            $response,
+            array_key_exists('errors', $response) ? 422 : 202
+        );
     }
 }

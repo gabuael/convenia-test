@@ -14,6 +14,7 @@ Route::middleware('auth:api')->group(function () {
         Route::put('/{employee}', [EmployeeController::class, 'update']);
         Route::get('/', [EmployeeController::class, 'list']);
         Route::delete('/{employee}', [EmployeeController::class, 'delete']);
+        Route::post('/importCsv', [EmployeeController::class, 'importCsv']);
     });
     Route::get('/user', function (Request $request) {
         return $request->user();
