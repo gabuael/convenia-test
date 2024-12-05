@@ -130,6 +130,24 @@ Todas as rotas abaixo requerem um token de autenticação válido no cabeçalho 
 -   **Resposta**:
     -   Retorna o status de sucesso ou erro.
 
+> **Atenção:** O processo de importação de funcionários via CSV é executado em uma **fila**. Isso significa que o processamento da importação não será feito imediatamente. Você precisa rodar o **worker da fila** para que a importação seja processada corretamente.
+
+---
+
+## Como Rodar a Fila no Laravel Sail
+
+Para processar as filas no Laravel Sail, siga os passos abaixo:
+
+### **Rodar o Worker de Fila**
+
+Para processar as filas, você precisa rodar o worker. Em Laravel Sail, você pode fazer isso executando o seguinte comando:
+
+```bash
+./vendor/bin/sail artisan queue:work
+```
+
+Esse comando vai iniciar o worker da fila e ele começará a processar as jobs que estiverem na fila. **Esse processo é necessário para que o endpoint de importação de funcionários via CSV funcione corretamente**.
+
 ---
 
 ## Testes
