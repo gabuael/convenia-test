@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Repositories\Contracts\EmployeeRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class EmployeeService
 {
@@ -26,7 +27,11 @@ class EmployeeService
 
     public function list(int $managerId): Collection
     {
-        return $this->employeeRepository->list($managerId);
+        $cacheKey = 'employees_manager_' . $managerId;
+
+        return Cache::remember($cacheKey, 60, function () use ($managerId) {
+            return $this->employeeRepository->list($managerId);
+        });
     }
 
     public function delete(Employee $employee): bool
