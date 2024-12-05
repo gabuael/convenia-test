@@ -5,7 +5,6 @@ use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Contracts\Auth\AuthRepositoryInterface;
 use App\Services\Auth\AuthService;
 use Illuminate\Support\Facades\Hash;
-use Mockery;
 use Mockery\MockInterface;
 use Tests\Pest;
 
